@@ -6,6 +6,8 @@ import { BackGroundImage } from "../../BackGroundImageComponents/BackGroundImage
 const Image = require("../../../assets/img/sky.png");
 //utils
 import performCyberpunkRadiationOnInterval from "../../../utils/performCyberpunkRadiationOnIntervall";
+//icons
+
 
 export function Home() {
     const [glow, setGlow] = useState(false);
