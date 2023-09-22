@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet} from 'react-native';
 import { PaperProvider } from 'react-native-paper'
-import {useTheme} from 'react-native-paper';
+
 
 
 //Navigation
@@ -15,14 +15,18 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 //own components
 import { Home } from './components/HomeComponent/ButtonComponents/Home';
 
+//utils
+
 
 //custom Theme
-import cyberpunkTheme from './customTheme/customTheme';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
+//custom Hook
+import { useAppTheme } from './customTheme/customTheme';
 
 export default function App() {
+  const theme = useAppTheme();
   const Tab = createMaterialBottomTabNavigator();
   const [fontsLoaded] = useFonts({
     'orbitron-regular': require('./assets/fonts/Orbitron-Regular.ttf'),
@@ -43,7 +47,7 @@ export default function App() {
   }
 
   return (
-      <PaperProvider theme={cyberpunkTheme}>
+      <PaperProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator>
             <Tab.Screen name="Home" component={Home} options={{

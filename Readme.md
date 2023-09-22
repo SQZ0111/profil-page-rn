@@ -6,6 +6,7 @@
 - [react-native-paper](https://callstack.github.io/react-native-paper/docs/guides/getting-started)
 - [expo-custom-fonts](https://docs.expo.dev/versions/latest/sdk/font/)
 - [react-native-navigation](https://reactnavigation.org/docs/getting-started/)
+- [TypeScript](https://reactnative.dev/docs/typescript)
 
 
 ## Cloning from git and installs

@@ -1,8 +1,12 @@
 import { Text,View,StyleSheet } from "react-native";
-import {useTheme} from "react-native-paper";
+import { useAppTheme } from "../../customTheme/customTheme";
+import React from "react";
 
-export function OverLayText({text,glow}) {
-    const theme = useTheme();
+export function OverLayText({text,glow}:{
+    text: string,
+    glow: boolean,
+}) : React.JSX.Element {
+    const theme = useAppTheme();
 
 
     return(
