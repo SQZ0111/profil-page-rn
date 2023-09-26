@@ -5,9 +5,14 @@
   "scripts": {
     "start": "expo start",
     "ts:check": "tsc --noEmit",
+    "prettier:write": "prettier . --write ",
+    "prettier:check": "prettier . --check",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@expo/webpack-config": "^19.0.0",
@@ -34,8 +39,23 @@
     "@types/react": "^18.2.22",
     "@types/react-native-vector-icons": "^6.4.14",
     "@types/react-test-renderer": "^18.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "babel-plugin-module-resolver": "^5.0.0",
+    "eslint": "^8.50.0",
+    "eslint-plugin-expo": "^0.0.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jest": "^27.4.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-native": "^4.1.0",
+    "eslint-plugin-react-native-a11y": "^3.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "3.0.3",
     "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   },
   "private": true
 }

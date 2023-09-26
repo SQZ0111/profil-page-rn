@@ -1,28 +1,48 @@
-import { StyleSheet,ImageBackground, ImageSourcePropType } from "react-native"
-import { OverLayText } from "../TextComponents/OverLayText"
+import { StyleSheet, ImageBackground, ImageSourcePropType } from "react-native";
+import { DimensionValue } from 'react-native';
+import { OverLayText } from "../TextComponents/OverLayText";
 import React from "react";
 
-interface imgProps {
-    children: any,
-    imgUrl: ImageSourcePropType,
-    text: string,
-    glow: boolean,
+type imgPropsTypes = {
+  imgUrl: ImageSourcePropType;
+  text: string;
+  glow: boolean;
+};
 
-}
-
-export function BackGroundImage({children,imgUrl,text,glow} : imgProps)
-: React.JSX.Element {
-    return(
-        <ImageBackground resizeMode="cover" source={imgUrl} style={imageStyles.image}>
-            {text && <OverLayText glow={glow} text={text}/>}
-        </ImageBackground>
-    )
-}
-
-const imageStyles = StyleSheet.create({
+type imgStylesType = {
     image: {
-        flex: 1,
-        width: "100%",
-        justifyContent: "center"
-    }
-})
+        flex: number;
+        justifyContent:| "flex-start"
+        | "flex-end"
+        | "center"
+        | "space-between"
+        | "space-around"
+        | "space-evenly"
+        | undefined;
+        width: DimensionValue | undefined;
+    },
+}
+
+export function BackGroundImage({
+  imgUrl,
+  text,
+  glow,
+}: imgPropsTypes): React.JSX.Element {
+  return (
+    <ImageBackground
+      resizeMode="cover"
+      source={imgUrl}
+      style={imageStyles.image}
+    >
+      {text && <OverLayText glow={glow} text={text} />}
+    </ImageBackground>
+  );
+}
+
+const imageStyles: imgStylesType = StyleSheet.create({
+  image: {
+    flex: 1,
+    justifyContent: "center",
+    width: "100%",
+  },
+});
