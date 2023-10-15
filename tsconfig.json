@@ -1,5 +1,5 @@
 {
-  "compilerOptions":{
+  "compilerOptions": {
     "strict": true,
     "baseUrl": "./",
     "moduleResolution": "node",
