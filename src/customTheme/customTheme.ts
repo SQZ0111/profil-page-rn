@@ -7,14 +7,20 @@ const cyberpunkTheme = {
     regular: {
       fontFamily: "orbitron-regular",
       fontWeight: "normal",
+      fontSize: 12,
     },
     medium: {
       fontFamily: "orbitron-regular",
       fontWeight: "normal",
+      fontSize: 14,
     },
     big: {
       fontFamily: "orbitron-regular",
       fontSize: 18,
+    },
+    veryBig: {
+      fontFamily: "orbitron-regular",
+      fontSize: 24,
     },
   },
   colors: {

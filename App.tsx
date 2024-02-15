@@ -8,8 +8,8 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 //own components
-import { Home } from "./components/PageComponents/Home";
-import { WorkingExperience } from "./components/PageComponents/WorkingExperience";
+import { Home } from "./src/components/PageComponents/Home";
+import { WorkingExperience } from "./src/components/PageComponents/WorkingExperience";
 //utils
 
 //custom Theme
@@ -17,13 +17,13 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 //custom Hook
-import { useAppTheme } from "./customTheme/customTheme";
+import { useAppTheme } from "./src/customTheme/customTheme";
 
 export default function App() {
   const theme = useAppTheme();
   const Tab = createMaterialBottomTabNavigator();
   const [fontsLoaded] = useFonts({
-    "orbitron-regular": require("../assets/fonts/Orbitron-Regular.ttf"),
+    "orbitron-regular": require("./assets/fonts/Orbitron-Regular.ttf"),
   });
 
   useEffect(() => {

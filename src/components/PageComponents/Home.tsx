@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlexAlignType } from "react-native";
 import { useState } from "react";
 import React from "react";
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider } from "react-native-safe-area-context";
 //components
 import { BackGroundImage } from "../BackGroundImageComponents/BackGroundImage";
 //assets
@@ -10,6 +10,7 @@ const Image = require("../../../assets/img/sky.png");
 import performCyberpunkRadiationOnInterval from "../../utils/useCyberpunkRadiationOnIntervall";
 //icons
 
+//nicht notwendig da Styles.create schon ein ts objekt darauf macht
 type StylesHomeType = {
   container: {
     flex: number;

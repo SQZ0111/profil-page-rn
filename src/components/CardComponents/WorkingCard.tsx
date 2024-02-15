@@ -1,48 +1,64 @@
-import { Card, Text } from 'react-native-paper';
-import { StyleSheet,View} from 'react-native';
+import { Card, Text } from "react-native-paper";
+import { StyleSheet, View } from "react-native";
+import { Dimensions } from "react-native";
+import { useAppTheme } from "../../customTheme/customTheme";
 
-export function WorkingCard() : React.JSX.Element {
+const screenWidth = Dimensions.get("window").width;
 
-    return(
-        <View style={CardStyles.container}>
-            <Card mode='elevated' elevation={5} style={CardStyles.card}>
-                <Card.Title style={CardStyles.heading} titleVariant='displayLarge' title="Position"/>
-                <Card.Content>
-                <Text variant="bodyMedium">2019-2023</Text>
-                <Text variant="bodyMedium">remote🏠</Text>
-                <Text style={CardStyles.textContent}variant="bodyLarge">Description Lorem Ipsum blabla</Text>
-                </Card.Content>
-            </Card>   
-        </View>
-    )
-}
+type WorkingCardPropTypes = {
+  position: string;
+  years: string;
+  location: string;
+  description: string;
+};
 
-const CardStyles = StyleSheet.create({
+export function WorkingCard({
+  position,
+  years,
+  location,
+  description,
+}: WorkingCardPropTypes): React.JSX.Element {
+  const theme = useAppTheme();
+
+  const CardStyles = StyleSheet.create({
     card: {
-        alignItems: 'center',
-        borderRadius: 10,
-        display: 'flex',
-        flexDirection: 'column',
-        height: '80%',
-        justifyContent: 'space-between',
-        width: '80%'
+      alignItems: "center",
+      borderRadius: 10,
+      display: "flex",
+      flexDirection: "column",
+      height: "80%",
+      justifyContent: "space-between",
+      width: screenWidth - 40,
     },
     container: {
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-        justifyContent: 'space-evenly',
-        width: '100%'
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "column",
+      height: "100%",
+      justifyContent: "space-evenly",
+      paddingHorizontal: 20,
+      width: screenWidth,
     },
     heading: {
-        alignSelf: 'flex-start',
-
+      alignSelf: "flex-start",
+      fontFamily: theme.fonts.medium.fontFamily,
+      fontSize: theme.fonts.medium.fontSize,
     },
     textContent: {
-        top: 100
-        
-    }
-
-
-})
+      fontFamily: theme.fonts.regular.fontFamily,
+      fontSize: theme.fonts.regular.fontSize,
+    },
+  });
+  return (
+    <View style={CardStyles.container}>
+      <Card mode="elevated" elevation={5} style={CardStyles.card}>
+        <Card.Title style={CardStyles.heading} title={position} />
+        <Card.Content>
+          <Text>{years}</Text>
+          <Text>{location}</Text>
+          <Text style={CardStyles.textContent}>{description}</Text>
+        </Card.Content>
+      </Card>
+    </View>
+  );
+}
