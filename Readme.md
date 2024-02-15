@@ -59,8 +59,251 @@ Wir bauen im folgenden eine Profilseite in _React Native_. _React Native_ basier
 5. Nun kannst du deine eigene Startseite (die Seite auf der NutzerInnen zuerst landen) erstellen. Es gibt hierbei keine Einschränkung, jedoch solltest du beachten nicht zuviel einzubauen, sondern erst in weiteren Seiten. Ein schöner Hintergrund, ein Zitat/Motivation mit eventuellem Effekt reichen erstmal aus. Erstelle die benötigten Komponenten und überführe diese in eine `Home.jsx` Komponete. Diese wird zuletzt in die `App.jsx` übergeben.
 6. Falls du Animationen nutzen möchtest, eignen sich [react-reanimated](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/your-first-animation/) oder [moti](https://moti.fyi/) ganz gut.
 7. Erstelle nun eine einfache Navigation. Es gibt hierbei mehrere Möglichkeiten, die von _react native paper_ und direkt von der unterliegenden Navigationsbibliothek [react-navigation](https://reactnavigation.org/) angeboten werden.
+8. Baue eine weitere Komponente, als Beispiel kann man hierfür die _work experience_ als verschiebare Karte einbauen. Verlinke diese in den Router.
 
 ### TypeScript
+
+Falls du nicht initial bei dem Projektaufsatz mit `npx create-expo-app **NAME**` schon bereits Typescript als Basis für dein Projekt ausgewählt hast, kannst du weiterhin _TypeScript_ on top installieren.
+
+1. Installiere TypeScript (_expo und npm sind bereits vorhanden_) mit `npm install --save-dev typescript`.
+2. Mit `npx tsc --init` kannst du im _rootverzeichnis_ deines Projekts eine `tsconfig.json` mit grundlegenden Einstellungen erstellen. Diese Einstellungen steuern im wesentlichen das Verhalten des _TypeScript-Compilers_.
+3. Falls die entsprechende Datei leer ist, kannst du entsprechend folgende Konfigurationseinstellungen übernehmen.
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": "./",
+    "moduleResolution": "node",
+    "paths": {
+      "*": ["node_modules/*", "src/*", "assets/*"]
+    }
+  },
+  "extends": "expo/tsconfig.base"
+}
+```
+
+Das `"extends"` _property_ übernimmt die bereits in _expo_ vordefinierten grundlegenden Konfigurationseinstellungen. Mit `strg + Rechtsklick` kannst du dir die Konfiguration entsprechend einmal anschauen. 4. Benenne nun die Dateien in deinem `src` Ordner um. Statt `.js` haben diese die Endung `.tsc` oder statt `jsx` nun `tsx`. 5. Du kannst nun eine Typüberprüfung mit `npx tsc` durchführen. Stattdessen kann man auch in der `package.json` ein Skriptbefehl schreiben wie z.B `ts:check": "tsc --noEmit` wobei das Flag `--noEmit` weggelassen werden kann, da die `tsconfig.json` dies schon festlegt (zur es werden keine Compilierte js Dateien erzeugt, da wird expo dies schon für uns handhabt).
+
+**<hr>**
+Bevor wir nun weitermachen gibt es einen kleinen _Crash-Course_ in Typezuweisung:
+
+Einfache Variablen kann folgend einen **Typ** zuweisen.
+
+```ts
+const text: string = "Hallo Welt";
+```
+
+Das funktioniert natürlich auch, wenn der Wert erst zur Laufzeit bestimmt wird, aber man trotzdessen schon ein bestimmten **Typen** erwartet:
+
+```ts
+const userInput: string = prompt("\n>>");
+```
+
+Um **properties** von Objekten zu beschreiben können wir entweder sogenannte `interfaces` oder `types` verwenden. Erstmal beide im in ihrer einfachen Anwendung:
+**\*interface**
+
+```tsc
+interface User = {
+    name: string,
+    age: number,
+    neet: boolean
+}
+
+const someUsers : User[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true
+   },
+]
+```
+
+**_types_**
+
+```tsc
+type User = {
+    name: string,
+    age: number,
+    neet: boolean
+}
+
+const someUsers : User[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true
+   },
+]
+```
+
+An sich erstmal die gleiche Syntax. Der Hauptunterschied liegt in Wiedernutzung (interface durch `extends`) und in der Vereinigung von mehreren, schon vorhandenen **Typen**
+**interface erweiterbar (Pluspunkt in Wiederverwertbarkeit und Modularisierung)**
+
+```tsc
+interface User = {
+    name: string,
+    age: number,
+    neet: boolean
+}
+
+interface specialUsers extends User = {
+    imgUrl: string
+}
+
+
+const someUsers : User[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true
+   },
+]
+
+const someUserWithImg : specialUsers[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+   },
+]
+```
+
+**interface extendable (Pluspunkt in Wiederverwertbarkeit und Modularisierung)**
+
+````
+
+```tsc
+type User = {
+    name: string,
+    age: number,
+    neet: boolean
+}
+
+interface specialUsers extends User = {
+    imgUrl: string
+}
+
+
+const someUsers : User[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true
+   },
+]
+
+const someUserWithImg : specialUsers[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+   },
+]
+````
+
+**type intersection/union (wenn Typen manchmal zur Laufzeit klar sind oder sich ändern können)**
+
+```tsc
+type User = {
+    name: string,
+    age: number | string,
+    neet: boolean
+}
+
+const someUsers : User[] = [
+    {
+      name: "saqib",
+      age : "27",
+      neet: true
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true
+   },
+]
+
+const someUserWithImg : specialUsers[] = [
+    {
+      name: "saqib",
+      age : 27,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+    },
+    {
+      name: "toto",
+      age : 10,
+      neet: true,
+      imgUrl: "http://irgendein.dummer.link"
+   },
+]
+```
+
+Abgesehen davon kann man mit `type` auch **primitive Datentypen** (Abseits unseres Beispiels zu Variablen oben) und **Tupel** typisieren (wir werden diesen Begriff ab jetzt nutzen, um auszusagen, dass einem bestimmten Wert einen Datentypen zugeordnet wird).
+
+```tsc
+
+type Coordinate = number | number;
+type ID = string | number;
+
+```
+
+**<hr>** 6. Wir fangen nun nach und nach an unsere Dateien mit `types` zu versehen. Zuerst wollen wir die **properties** mit einem jeweiligen `type` versehen. Suche dir dazu deine Komponente mit den **props** raus. Ich gebe dir nun ein Beispiel:
+
+```tsx
+type WorkingCardPropTypes = {
+  position: string;
+  years: string;
+  location: string;
+  description: string;
+};
+
+export function WorkingCard({
+  position,
+  years,
+  location,
+  description,
+}: WorkingCardPropTypes): React.JSX.Element {
+  //CODE
+}
+```
+
+Da **props** innerhalb eines Objekt spezifiziert schreiben, schreiben wir ebenfalls ein entsprechende Objekt mit den entsprechenden **Schlüssel** und den entsprechenden **Datentypen**. Da Zuweisen geschieht hier mit einem Doppeltpunkt.
 
 ....
 
