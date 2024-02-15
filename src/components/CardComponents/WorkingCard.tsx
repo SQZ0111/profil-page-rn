@@ -3,7 +3,7 @@ import { StyleSheet, View } from "react-native";
 import { Dimensions } from "react-native";
 import { useAppTheme } from "../../customTheme/customTheme";
 
-const screenWidth = Dimensions.get("window").width;
+const screenWidth: number = Dimensions.get("window").width;
 
 type WorkingCardPropTypes = {
   position: string;
