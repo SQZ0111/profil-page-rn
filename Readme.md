@@ -303,10 +303,87 @@ export function WorkingCard({
 }
 ```
 
-Da **props** innerhalb eines Objekt spezifiziert schreiben, schreiben wir ebenfalls ein entsprechende Objekt mit den entsprechenden **Schlüssel** und den entsprechenden **Datentypen**. Da Zuweisen geschieht hier mit einem Doppeltpunkt.
+Da **props** innerhalb eines Objekt spezifiziert schreiben, schreiben wir ebenfalls ein entsprechende Objekt mit den entsprechenden **Schlüssel** und den entsprechenden **Datentypen**. Das Zuweisen geschieht hier mit einem Doppeltpunkt.
 
-....
+Im nächsten Schritt möchten wir unsere Funktionen (hier unsere Komponenten und "normalen" Funktionen) annotieren mit sogenannten *return types*. Tue dies für in dem untenstehenden Beispiel für alle Funktionen in deinem Projekt.
+```typescript
+const App = ({ message }: AppProps): React.JSX.Element => <div>{message}</div>;
+```  
+Darauffolgend können wir die entsprechenden *Hooks* mit *Typescript* versehen. Für `useState` kann entweder das *inferred type system* genutzt werden, welches bereits den entsprechenden Datentyp an die *state-variable* verweist oder aber die *null-ish* Zuweisung nach entsprechenden Schema:
 
+```typescript
+const [user, setUser] = useState<User | null>(null);
+```
+Für *custom hooks* müssen wir jedoch bei der Definition beachten, dass wir nicht, dass *inferred type system* nutzen wollen, denn dieses würde in einem *union* (entweder *boolean* oder *typeof setstate*) zu einem möglichen Fehler führen. Man spricht hier von der typischen Typescript Eigenschaft des *widening*. Stattdessen nutzen wir hier etwas namens [const-assertion](https://devblogs.microsoft.com/typescript/announcing-typescript-3-4/#const-assertions). Dies verhidert die dynamische Zuweisung mit dem *union*:
+```typescript
+import { useState } from "react";
+
+export function useLoading() {
+  const [isLoading, setState] = useState(false);
+  const load = (aPromise: Promise<any>) => {
+    setState(true);
+    return aPromise.finally(() => setState(false));
+  };
+  return [isLoading, load] as const; // infers [boolean, typeof load] instead of (boolean | typeof load)[]
+}
+```
+`UseRef` Hooks sollten so genau wie möglich die entsprechende Referenz (also in diesem Fall das entsprechende `HTMLElement`) spezifizieren:
+
+```typescript
+const divRef = useRef<HTMLDivElement>(null);
+```
+
+Wie nutzen wir `useEffect` innerhalb von *TypeScript*? Da `useEffect`als sogenannte *'side effect and clean-up'* Funktion (also es soll irgendwas wie ein *request* innerhalb des `useEffect` ausgeführt werden) im Regelfall keinen *return value* außer die übergebene anonyme Funktion hat (lass dir das nochmal durch den Kopf gehen), muss nicht viel getan werden:
+```typescript
+type DelayedEffectPropsTypes = {
+  timerMs : number
+};
+function DelayedEffect({ timerMs: DelayedEffectPropsTypes }) : void {
+
+  useEffect(() => {
+    setTimeout(() => {
+      /* do stuff */
+    }, timerMs);
+  }, [timerMs]);
+  // better; use the void keyword to make sure you return undefined like above
+  return null;
+}
+```
+Styles können nochmals mit einem eigenem *type* je Komponente versehen werden, müssen jedoch nicht unbedingt, da auch hier durch `StyleSheet.create` bereits das *inferred type system* zum Zuge kommt.
+
+```typescript
+type StylesHomeType = {
+  container: {
+    flex: number;
+    flexDirection:
+      | "row"
+      | "column"
+      | "row-reverse"
+      | "column-reverse"
+      | undefined;
+    justifyContent:
+      | "flex-start"
+      | "flex-end"
+      | "center"
+      | "space-between"
+      | "space-around"
+      | "space-evenly"
+      | undefined;
+    alignItems: FlexAlignType;
+  };
+};
+
+const homeStyles: StylesHomeType = StyleSheet.create({
+  container: {
+    alignItems: "center",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+});
+```
+
+ 
 ### Prettier, Linting und git Hooks
 
 ...
