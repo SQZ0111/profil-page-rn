@@ -18,7 +18,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 //custom Hook
 import { useAppTheme } from "./src/customTheme/customTheme";
-import { FirestoreProvider } from "customHooks/useFireStore";
+//import { FirestoreProvider } from "./src/customHooks/useFireStore";
 
 export default function App() {
   const theme = useAppTheme();
@@ -41,7 +41,7 @@ export default function App() {
   }
 
   return (
-    <FirestoreProvider>
+//    <FirestoreProvider>
       <PaperProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator>
@@ -109,6 +109,6 @@ export default function App() {
           </Tab.Navigator>
         </NavigationContainer>
       </PaperProvider>
-    </FirestoreProvider>
+//    </FirestoreProvider>
   );
 }
