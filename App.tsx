@@ -18,6 +18,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 //custom Hook
 import { useAppTheme } from "./src/customTheme/customTheme";
+import { FirestoreProvider } from "customHooks/useFireStore";
 
 export default function App() {
   const theme = useAppTheme();
@@ -40,72 +41,74 @@ export default function App() {
   }
 
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen
-            name="Home"
-            component={Home}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons name="home" color={color} size={26} />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Profil"
-            component={Home}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="face-man-profile"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Exp"
-            component={WorkingExperience}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="head-lightbulb"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="Tech Stack"
-            component={Home}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="hammer-screwdriver"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-          <Tab.Screen
-            name="More"
-            component={Home}
-            options={{
-              tabBarIcon: ({ color }) => (
-                <MaterialCommunityIcons
-                  name="eye-plus"
-                  color={color}
-                  size={26}
-                />
-              ),
-            }}
-          />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <FirestoreProvider>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen
+              name="Home"
+              component={Home}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons name="home" color={color} size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Profil"
+              component={Home}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="face-man-profile"
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Exp"
+              component={WorkingExperience}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="head-lightbulb"
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Tech Stack"
+              component={Home}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="hammer-screwdriver"
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="More"
+              component={Home}
+              options={{
+                tabBarIcon: ({ color }) => (
+                  <MaterialCommunityIcons
+                    name="eye-plus"
+                    color={color}
+                    size={26}
+                  />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </FirestoreProvider>
   );
 }
