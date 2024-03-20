@@ -305,16 +305,20 @@ export function WorkingCard({
 
 Da **props** innerhalb eines Objekt spezifiziert schreiben, schreiben wir ebenfalls ein entsprechende Objekt mit den entsprechenden **Schlüssel** und den entsprechenden **Datentypen**. Das Zuweisen geschieht hier mit einem Doppeltpunkt.
 
-Im nächsten Schritt möchten wir unsere Funktionen (hier unsere Komponenten und "normalen" Funktionen) annotieren mit sogenannten *return types*. Tue dies für in dem untenstehenden Beispiel für alle Funktionen in deinem Projekt.
+Im nächsten Schritt möchten wir unsere Funktionen (hier unsere Komponenten und "normalen" Funktionen) annotieren mit sogenannten _return types_. Tue dies für in dem untenstehenden Beispiel für alle Funktionen in deinem Projekt.
+
 ```typescript
 const App = ({ message }: AppProps): React.JSX.Element => <div>{message}</div>;
-```  
-Darauffolgend können wir die entsprechenden *Hooks* mit *Typescript* versehen. Für `useState` kann entweder das *inferred type system* genutzt werden, welches bereits den entsprechenden Datentyp an die *state-variable* verweist oder aber die *null-ish* Zuweisung nach entsprechenden Schema:
+```
+
+Darauffolgend können wir die entsprechenden _Hooks_ mit _Typescript_ versehen. Für `useState` kann entweder das _inferred type system_ genutzt werden, welches bereits den entsprechenden Datentyp an die _state-variable_ verweist oder aber die _null-ish_ Zuweisung nach entsprechenden Schema:
 
 ```typescript
 const [user, setUser] = useState<User | null>(null);
 ```
-Für *custom hooks* müssen wir jedoch bei der Definition beachten, dass wir nicht, dass *inferred type system* nutzen wollen, denn dieses würde in einem *union* (entweder *boolean* oder *typeof setstate*) zu einem möglichen Fehler führen. Man spricht hier von der typischen Typescript Eigenschaft des *widening*. Stattdessen nutzen wir hier etwas namens [const-assertion](https://devblogs.microsoft.com/typescript/announcing-typescript-3-4/#const-assertions). Dies verhidert die dynamische Zuweisung mit dem *union*:
+
+Für _custom hooks_ müssen wir jedoch bei der Definition beachten, dass wir nicht, dass _inferred type system_ nutzen wollen, denn dieses würde in einem _union_ (entweder _boolean_ oder _typeof setstate_) zu einem möglichen Fehler führen. Man spricht hier von der typischen Typescript Eigenschaft des _widening_. Stattdessen nutzen wir hier etwas namens [const-assertion](https://devblogs.microsoft.com/typescript/announcing-typescript-3-4/#const-assertions). Dies verhidert die dynamische Zuweisung mit dem _union_:
+
 ```typescript
 import { useState } from "react";
 
@@ -327,19 +331,20 @@ export function useLoading() {
   return [isLoading, load] as const; // infers [boolean, typeof load] instead of (boolean | typeof load)[]
 }
 ```
+
 `UseRef` Hooks sollten so genau wie möglich die entsprechende Referenz (also in diesem Fall das entsprechende `HTMLElement`) spezifizieren:
 
 ```typescript
 const divRef = useRef<HTMLDivElement>(null);
 ```
 
-Wie nutzen wir `useEffect` innerhalb von *TypeScript*? Da `useEffect`als sogenannte *'side effect and clean-up'* Funktion (also es soll irgendwas wie ein *request* innerhalb des `useEffect` ausgeführt werden) im Regelfall keinen *return value* außer die übergebene anonyme Funktion hat (lass dir das nochmal durch den Kopf gehen), muss nicht viel getan werden:
+Wie nutzen wir `useEffect` innerhalb von _TypeScript_? Da `useEffect`als sogenannte _'side effect and clean-up'_ Funktion (also es soll irgendwas wie ein _request_ innerhalb des `useEffect` ausgeführt werden) im Regelfall keinen _return value_ außer die übergebene anonyme Funktion hat (lass dir das nochmal durch den Kopf gehen), muss nicht viel getan werden:
+
 ```typescript
 type DelayedEffectPropsTypes = {
-  timerMs : number
+  timerMs: number;
 };
-function DelayedEffect({ timerMs: DelayedEffectPropsTypes }) : void {
-
+function DelayedEffect({ timerMs: DelayedEffectPropsTypes }): void {
   useEffect(() => {
     setTimeout(() => {
       /* do stuff */
@@ -349,7 +354,8 @@ function DelayedEffect({ timerMs: DelayedEffectPropsTypes }) : void {
   return null;
 }
 ```
-Styles können nochmals mit einem eigenem *type* je Komponente versehen werden, müssen jedoch nicht unbedingt, da auch hier durch `StyleSheet.create` bereits das *inferred type system* zum Zuge kommt.
+
+Styles können nochmals mit einem eigenem _type_ je Komponente versehen werden, müssen jedoch nicht unbedingt, da auch hier durch `StyleSheet.create` bereits das _inferred type system_ zum Zuge kommt.
 
 ```typescript
 type StylesHomeType = {
@@ -383,7 +389,6 @@ const homeStyles: StylesHomeType = StyleSheet.create({
 });
 ```
 
- 
 ### Prettier, Linting und git Hooks
 
 ...

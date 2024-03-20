@@ -1,5 +1,5 @@
 import { Card, Text } from "react-native-paper";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Image, ImageSourcePropType } from "react-native";
 import { Dimensions } from "react-native";
 import { useAppTheme } from "../../customTheme/customTheme";
 
@@ -10,6 +10,7 @@ type WorkingCardPropTypes = {
   years: string;
   location: string;
   description: string;
+  imgUrl: ImageSourcePropType;
 };
 
 export function WorkingCard({
@@ -17,9 +18,9 @@ export function WorkingCard({
   years,
   location,
   description,
+  imgUrl,
 }: WorkingCardPropTypes): React.JSX.Element {
   const theme = useAppTheme();
-
   const CardStyles = StyleSheet.create({
     card: {
       alignItems: "center",
@@ -37,12 +38,20 @@ export function WorkingCard({
       height: "100%",
       justifyContent: "space-evenly",
       paddingHorizontal: 20,
+      rowGap: 5,
       width: screenWidth,
     },
     heading: {
       alignSelf: "flex-start",
       fontFamily: theme.fonts.medium.fontFamily,
       fontSize: theme.fonts.medium.fontSize,
+    },
+    iconImg: {
+      alignSelf: "center",
+      height: 100,
+      margin: 100,
+      resizeMode: "contain",
+      width: 100,
     },
     textContent: {
       fontFamily: theme.fonts.regular.fontFamily,
@@ -57,6 +66,7 @@ export function WorkingCard({
           <Text>{years}</Text>
           <Text>{location}</Text>
           <Text style={CardStyles.textContent}>{description}</Text>
+          <Image style={CardStyles.iconImg} source={imgUrl}></Image>
         </Card.Content>
       </Card>
     </View>
