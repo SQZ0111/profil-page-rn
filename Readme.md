@@ -392,3 +392,5 @@ const homeStyles: StylesHomeType = StyleSheet.create({
 ### Prettier, Linting und git Hooks
 
 ...
+
+### Firestore

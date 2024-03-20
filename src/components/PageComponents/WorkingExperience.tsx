@@ -32,7 +32,7 @@ export function WorkingExperience(): React.JSX.Element {
       years: "2023-Aktuell",
       location: "Ruhruniversität Bochum, Fak. Informatik",
       description:
-        "Creating new features for the faculty webpages. Mainly in php and javaScript, but also some configuration (Docker, SQL, Wordpress). Set up scrum-based workflow for small dev team",
+        "Creating new features for the faculty webpages. Mainly in php and javaScript, but also some configuration (Docker, SQL, Wordpress). Set up scrum-based workflow for small dev team.",
       imgUrl: universityIcon,
     },
   ];
